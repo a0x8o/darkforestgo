@@ -3,9 +3,9 @@
 // All rights reserved.
 //
 // This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant 
+// LICENSE file in the root directory of this source tree. An additional grant
 // of patent rights can be found in the PATENTS file in the same directory.
-// 
+//
 
 #ifndef _PLAYOUT_PARAMS_H_
 #define _PLAYOUT_PARAMS_H_
@@ -149,6 +149,9 @@ typedef struct {
   int default_policy_sample_topn;
   double default_policy_temperature;
 
+  // Define minimal rollout so that the search procedure can be peekable.
+  int min_rollout_peekable;
+
   // Use RAVE heuristics.
   BOOL use_rave;
 
@@ -196,6 +199,9 @@ typedef struct {
   // If it is 100, then all threads will continue (run playout and restart).
   // Ideally we only want a few node to wait so that they can be the next batch to expand child nodes.
   int percent_playout_in_expansion;
+
+  // Run a few playout and takes their mean. Default is 1, but could be higher.
+  int num_playout_per_rollout;
 
   // Whether we use PUCT and previous UCT
   BOOL use_old_uct;
